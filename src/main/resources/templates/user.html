@@ -5,64 +5,24 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>UsersPage</title>
 
-    <style>
-        table {
-            font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
-            text-align: left;
-            border-collapse: separate;
-            border-spacing: 5px;
-            background: #ECE9E0;
-            color: #656665;
-            border: 16px solid #ECE9E0;
-            border-radius: 20px;
-        }
-        th {
-            font-size: 18px;
-            padding: 10px;
-        }
-        td {
-            background: #F5D7BF;
-            padding: 10px;
-        }
-    </style>
+
 </head>
 <body>
-<h1 th:text="${titleTable} + ${user.getName()} +' '+ ${user.getLast_name()}"/>
-<table class="table">
-    <thead>
-    <tr>
-        <th scope="col">Id</th>
-        <th scope="col">Имя</th>
-        <th scope="col">Фамилия</th>
-        <th scope="col">Email(Логин)</th>
-        <th scope="col">Пароль</th>
-        <th scope="col">Права доступа</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td th:text="${user.getId()}"></td>
-        <td th:text="${user.getName()}"></td>
-        <td th:text="${user.getLast_name()}"></td>
-        <td th:text="${user.getUsername()}"></td>
-        <td th:text="${user.getPassword()}"></td>
-        <td th:text="${user.getRoles()}"></td>
-    </tr>
-    </tbody>
-</table>
-<br>
-<div sec:authorize="hasAuthority('ROLE_ADMIN')">
-    <form action="/admin" target="_self">
-        <button>Вернуться к списку пользователей</button>
-    </form>
-    <br>
-    <br>
-</div>
-<form th:action="@{/logout}" th:method="POST" target="_self">
-    <button>Выйти</button>
-</form>
-
-</body>
-</html>
+<nav class="navbar navbar-dark bg-dark d-flex justify-content-between">
+    <span>
+    <span class="navbar-brand font-weight-bold" th:text="${user.username}"></span>
+    <span class="navbar-brand"
+          th:text="'with roles: ' + ${user.roles}"></span>
+    </span>
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="/logout">Logout</a>
+        </li>
+    </ul>
+</nav>

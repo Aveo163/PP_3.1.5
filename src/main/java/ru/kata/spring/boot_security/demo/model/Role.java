@@ -72,7 +72,7 @@ import java.util.Set;
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
-            ru.kata.spring.boot_security.demo.model.Role role = (ru.kata.spring.boot_security.demo.model.Role) o;
+            Role role = (Role) o;
 
             return name != null ? name.equals(role.name) : role.name == null;
         }

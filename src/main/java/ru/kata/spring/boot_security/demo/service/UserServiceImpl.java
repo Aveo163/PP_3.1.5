@@ -37,41 +37,39 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             userRepository.save(user);
         }
 
-
-
-        @Override
-        public User getUser(Long id) {
-            return userRepository.findById(id).get();
-        }
-
-        @Transactional
-        public void updateUser(User user) {
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-            userRepository.save(user);
-        }
-
-        @Transactional
-        public void deleteUser(Long id) {
-            userRepository.delete(userRepository.findById(id).get());
-        }
-
-
-        public User findUserByUsername(String username) {
-            return userRepository.findByUsername(username);
-        }
-
-        @Transactional
-        @Override
-        public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-            User user = userRepository.findByUsername(username);
-            if (user == null) {
-                throw new UsernameNotFoundException("Пользователь не найден!");
-            }
-            return new org.springframework.security.core.userdetails.User(
-                    user.getUsername(), user.getPassword(), user.getAuthorities());
-        }
-
+    @Transactional
+    public void updateUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
     }
+
+    @Override
+    public User getUser(Long id) {
+        return userRepository.findById(id).get();
+    }
+
+    @Transactional
+    public void deleteUser(Long id) {
+        userRepository.delete(userRepository.findById(id).get());
+    }
+
+
+    public User findUserByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    @Transactional
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("Пользователь не найден!");
+        }
+        return new org.springframework.security.core.userdetails.User(
+                user.getUsername(), user.getPassword(), user.getAuthorities());
+    }
+
+}
 
 
 
