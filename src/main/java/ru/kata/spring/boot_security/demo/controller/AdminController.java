@@ -17,15 +17,12 @@ import java.util.List;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-        private final UserService userService;
+    private final UserService userService;
 
-        private final RoleService roleService;
-
-        @Autowired
-        public AdminController(UserServiceImpl userService, RoleServiceImpl roleService) {
-            this.userService = userService;
-            this.roleService = roleService;
-        }
+    @Autowired
+    public AdminController(UserServiceImpl userService) {
+        this.userService = userService;
+    }
 
     @GetMapping
     public String showAllUsers(Model model, Principal principal) {
@@ -34,43 +31,41 @@ public class AdminController {
         model.addAttribute("princ", princ);
         model.addAttribute("titleTable", "Список всех пользователей:");
         return "admin";
-        }
+    }
 
-        @GetMapping("/{id}")
-        public String showUser(Model model, @PathVariable("id") Long id) {
-            model.addAttribute("user", userService.getUser(id));
-            model.addAttribute("titleTable", "Страница пользователя:");
-            return "user";
-        }
+    @GetMapping("/{id}")
+    public String showUser(Model model, @PathVariable("id") Long id) {
+        model.addAttribute("user", userService.getUser(id));
+        model.addAttribute("titleTable", "Страница пользователя:");
+        return "user";
+    }
 
-        @GetMapping("/addUser")
-        public String addNewUser(Model model, @ModelAttribute("user") User user) {
-            List<Role> roles = roleService.getUniqAllRoles();
-            model.addAttribute("rolesAdd", roles);
-            return "newUser";
-        }
+    @GetMapping("/user-create")
+    public String addNewUser(@ModelAttribute("user") User user) {
+        return "admin";
+    }
 
     @PostMapping("/user-create")
-    public String addCreateNewUser( User user) {
+    public String addCreateNewUser(User user) {
         try {
             userService.createNewUser(user);
         } catch (Exception er) {
             System.err.println("Пользователь с таким email уже существует!");
-        }return "redirect:/admin";
+        }
+        return "redirect:/admin";
     }
+
     @PatchMapping("/user-update")
     public String updateUser(User user) {
         userService.updateUser(user);
         return "redirect:/admin";
-        }
+    }
 
     @GetMapping("/user-update/{id}")
     public String updateUserForm(@PathVariable("id") Long id, Model model) {
         model.addAttribute("user", userService.getUser(id));
         return "admin";
     }
-
-
 
     @DeleteMapping("/user-delete")
     public String deleteUser(Long id) {

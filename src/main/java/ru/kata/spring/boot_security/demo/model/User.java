@@ -4,7 +4,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Set;
@@ -16,7 +17,7 @@ public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "name")
@@ -25,10 +26,12 @@ public class User implements UserDetails {
     @Column(name = "last_name")
     private String last_name;
 
-    @Column(name = "email", nullable = false, unique = true)
+    @Column(name = "username", unique = true)
+    @Email
+    @NotEmpty(message = "Email/login should not be empty")
     private String username;
 
-    @Column(name = "password", nullable = false)
+    @Column(name = "password")
     private String password;
 
 
@@ -97,11 +100,9 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles.stream().map(r -> new SimpleGrantedAuthority(r.getName())).collect(Collectors.toList());
-
     }
 
     @Override
@@ -135,7 +136,6 @@ public class User implements UserDetails {
                 ", roles=" + roles.toString() +
                 '}';
     }
-
 }
 
 

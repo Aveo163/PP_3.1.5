@@ -26,3 +26,47 @@
         </li>
     </ul>
 </nav>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-2 bg-white">
+            <nav class="nav flex-column nav-pills">
+                <a class="nav-link active" href="/user">User</a>
+            </nav>
+        </div>
+
+        <div class="col-10 bg-light">
+            <h2>User information-page</h2>
+            </br>
+            <h6>About user</h6>
+            </br>
+            <table class="table table-light table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Имя</th>
+                    <th scope="col">Фамилия</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Пароль</th>
+                    <th scope="col">Права доступа</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td th:text="${user.getId()}"></td>
+                    <td th:text="${user.getName()}"></td>
+                    <td th:text="${user.getLast_name()}"></td>
+                    <td th:text="${user.getUsername()}"></td>
+                    <td th:text="${user.getPassword()}"></td>
+                    <td th:text="${user.getRoles()}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<br>
+
+</body>
+</html>
