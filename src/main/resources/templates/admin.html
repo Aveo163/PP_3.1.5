@@ -123,7 +123,7 @@
                                                                 <label for="passEdit"
                                                                        class="col-form-label">Password</label>
                                                                 <input type="password"
-                                                                       th:value="${user.password}" name="password"
+                                                                       name="password"
                                                                        class="form-control" id="passEdit"
                                                                        required minlength="2" maxlength="20"/>
                                                             </div>
@@ -133,8 +133,7 @@
                                                                 <select id="rolesEdit" class="form-select col-md-5"
                                                                         th:value="${user.roles}" name="roles" required="required"
                                                                         multiple="" size="2">
-                                                                    <option value="1">ADMIN</option>
-                                                                    <option selected="selected" value="2">USER</option>
+
                                                                 </select>
                                                             </div>
                                                         </div>
